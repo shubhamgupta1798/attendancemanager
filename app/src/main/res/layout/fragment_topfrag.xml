@@ -1,0 +1,45 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/topfrag"
+    android:layout_height="match_parent"
+    tools:context="com.my.new2pma.topfrag">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        tools:context="com.hfad.newpma.First"
+        android:weightSum="1">
+
+        <ImageView
+            android:layout_height="192dp"
+            android:layout_width="match_parent"
+            android:src="@drawable/nit_surat"
+            />
+        <!--in this first verion i am using listviews but after completing it once i will change most of the second level activities to a second level fragment-->
+
+        <ListView
+            android:id="@+id/listfirst"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/First_List"
+            android:background="@color/mycolor">
+
+        </ListView>
+        <TextView
+            android:id="@+id/textfirst"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textSize="35sp"
+            android:textColor="@color/mycolor"
+            android:textStyle="italic"
+            android:textAllCaps="true"
+            android:hint="it will show you the\n view\n you have selected and you are in top fragment"/>
+
+    </LinearLayout>
+
+</FrameLayout>

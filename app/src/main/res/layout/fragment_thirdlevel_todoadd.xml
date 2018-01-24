@@ -1,0 +1,92 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.my.new2pma.thirdlevel_todoadd">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+
+        <EditText
+                android:id="@+id/description"
+                android:hint="description"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="59dp" />
+
+            <RadioButton
+                android:id="@+id/notify"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="do you want notification for it" />
+            <RadioButton
+                android:id="@+id/alarm"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="do you wish to set alarm for it????????"/>
+
+        <EditText
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/date"
+                android:clickable="true"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="20dp"
+
+                android:focusable="false"
+                android:hint="deadlineDate"/>
+
+        <EditText
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/time"
+            android:clickable="true"
+
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="20dp"
+
+            android:focusable="false"
+            android:hint="alarm time"
+            android:inputType="time"/>
+
+      <!--  <TimePicker
+            android:id="@+id/timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_margin="10dp" />-->
+
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            android:layout_gravity="center_horizontal"/>
+
+
+    </LinearLayout>
+    </ScrollView>
+</FrameLayout>
