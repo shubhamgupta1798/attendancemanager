@@ -44,11 +44,13 @@ public class TotalListerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        categoryList.clear();
        View view= inflater.inflate(R.layout.fragment_total_lister, container, false);
 
         // Inflate the layout for this fragment
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         try {
+            foodTotal=0;MoviesTotal=0;lendTotal=0;borrowTotal=0;studyTotal=0;
             preparedata();
             mAdapter = new adapterSub(categoryList, getContext());
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
@@ -64,6 +66,12 @@ public class TotalListerFragment extends Fragment {
                     @Override public void onItemClick(View view, int position) {
                         // do whatever
                         Toast.makeText(getContext(),"onclickListener is working\n now you can add youtr function into it",Toast.LENGTH_SHORT).show();
+                        Bundle data= new Bundle();
+                        data.putInt("position",position);
+                        Fragment fragment=new landerlist();
+                        fragment.setArguments(data);
+                        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.contentdefault,fragment).addToBackStack(null).commit();
+
 
                     }
 
@@ -74,6 +82,12 @@ public class TotalListerFragment extends Fragment {
         );
         return view;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
     protected  void preparedata() {
 
 

@@ -7,10 +7,16 @@ package com.my.new2pma;
 public class Lenders {
     String Name;
     int amount;
+    int ImageresourceId;
 
     public Lenders(String name, int amount) {
         Name = name;
         this.amount = amount;
+        ImageresourceId=R.drawable.nit_surat;
+    }
+
+    public int getImageresourceId() {
+        return ImageresourceId;
     }
 
     public String getName() {

@@ -19,8 +19,12 @@ import android.view.ViewGroup;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.ValueDependentColor;
+import com.jjoe64.graphview.helper.DateAsXAxisLabelFormatter;
 import com.jjoe64.graphview.series.BarGraphSeries;
 import com.jjoe64.graphview.series.DataPoint;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 /**
@@ -55,18 +59,26 @@ public class graph extends Fragment {
         graph.addSeries(series);
     */
 
+        Calendar dat;
+        dat=Calendar.getInstance();
+        Date cal;
 
+        cal=dat.getTime();
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(0, -1),
-                new DataPoint(1, 5),
-                new DataPoint(2, 3),
-                new DataPoint(3, 2),
-                new DataPoint(4, 6),
-                new DataPoint(50,500)
+                new DataPoint(cal, -10),
+                new DataPoint(cal, 50),
+                new DataPoint(cal, 30),
+                new DataPoint(cal, 20),
+                new DataPoint(cal, 60),
+                new DataPoint(cal,50)
         });
         graph.getViewport().setScalable(true);
         graph.getViewport().setScalableY(true);
         graph.addSeries(series);
+
+        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+
 
 // styling
         series.setValueDependentColor(new ValueDependentColor<DataPoint>() {

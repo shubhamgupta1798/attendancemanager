@@ -22,16 +22,24 @@
 
        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="223dp"
+            android:layout_height="100dp"
             android:id="@+id/graphfrag"/>
-        <ListView
-            android:id="@+id/listfirst"
+
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="782dp"
-            android:entries="@array/todos">
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_gravity="center"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:id="@+id/todooptions"/>
 
-        </ListView>
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/totallister"/>
     </LinearLayout>
+
 
 </FrameLayout>

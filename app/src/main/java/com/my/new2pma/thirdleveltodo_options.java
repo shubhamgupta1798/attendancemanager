@@ -8,6 +8,9 @@ import android.icu.text.SimpleDateFormat;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +30,9 @@ public class thirdleveltodo_options extends Fragment {
 
     Calendar myCalendar=Calendar.getInstance();
     String DateToday;
-    ListView listDrinks;
+    RecyclerView listDrinks;
+
+    List<String> datalist=new ArrayList<String>();
     public thirdleveltodo_options() {
         // Required empty public constructor
     }
@@ -41,33 +46,44 @@ public class thirdleveltodo_options extends Fragment {
         Bundle data=getArguments();
         int position=data.getInt("position");
         View view =inflater.inflate(R.layout.fragment_thirdleveltodo_options, container, false);
-        listDrinks = (ListView) view.findViewById(R.id.lister);
+        listDrinks = (RecyclerView) view.findViewById(R.id.lister);
         switch(position)
         {
 
             case 0:
-                getToday();
+               datalist= getToday();
                 break;
             case 1:
-                getTommorow();
+                datalist= getTommorow();
                 break;
             case 2:
-                getThisWeek();
+                datalist= getThisWeek();
                 break;
-            case 3: getThisMonth();
+            case 3: datalist= getThisMonth();
                 break;
-            case 5:getAll();
+            case 5:datalist= getAll();
                 break;
         }
 
 
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        listDrinks.setLayoutManager(mLayoutManager);
+        listDrinks.setItemAnimator(new DefaultItemAnimator());
+
+       // adapter_options_card adapter_options_card = new adapter_options_card(imageresources, getContext());
+       TodoLister todoLister=new TodoLister(datalist,getContext());
+
+        listDrinks.setAdapter(todoLister);
+
         return view;
     }
 
-    private void getToday()
+    private List<String> getToday()
     {
+
+        List<String> listdata=new ArrayList<String>();
         try{
-            List<String> listdata=new ArrayList<String>();
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
@@ -94,9 +110,10 @@ public class thirdleveltodo_options extends Fragment {
             cursor.close();
             expdb.close();
             //  String[] fina= new String[listdata.size()];
-            ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
+            /*ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
 
-            listDrinks.setAdapter(lister);
+            listDrinks.setAdapter(lister);*/
+
 
             Toast.makeText(getContext(), "adapter implimented succesfully", Toast.LENGTH_SHORT).show();
 
@@ -105,11 +122,13 @@ public class thirdleveltodo_options extends Fragment {
         {
             Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
         }
+        return listdata;
     }
-    private void getAll()
+    private List<String> getAll()
     {
+
+        List<String> listdata=new ArrayList<String>();
         try{
-            List<String> listdata=new ArrayList<String>();
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
@@ -130,9 +149,6 @@ public class thirdleveltodo_options extends Fragment {
 
             cursor.close();
             expdb.close();
-            ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
-
-            listDrinks.setAdapter(lister);
 
 
         }
@@ -140,12 +156,14 @@ public class thirdleveltodo_options extends Fragment {
         {
             Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
         }
+        return listdata;
     }
 
-    private void getTommorow()
+    private List<String> getTommorow()
     {
+
+        List<String> listdata=new ArrayList<String>();
         try{
-            List<String> listdata=new ArrayList<String>();
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
@@ -169,19 +187,19 @@ public class thirdleveltodo_options extends Fragment {
             }
             cursor.close();
             expdb.close();
-            ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
-            listDrinks.setAdapter(lister);
 
         }
         catch (Exception e)
         {
             Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
         }
+        return listdata;
     }
-    private void getThisWeek()
+    private List<String> getThisWeek()
     {
+
+        List<String> listdata=new ArrayList<String>();
         try{
-            List<String> listdata=new ArrayList<String>();
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
@@ -216,22 +234,21 @@ public class thirdleveltodo_options extends Fragment {
             }
             cursor.close();
             expdb.close();
-            ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
-            listDrinks.setAdapter(lister);
 
         }
         catch (Exception e)
         {
             Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
         }
+        return listdata;
     }
 //the following method is not appropriate but as we have stored the date in the string format ihave to do getContext() in the bad way late we will replace string type by
     //long so to select a date from a range will become an easy task to do
 
-    private void getThisMonth()
-    {
+    private List<String> getThisMonth()
+    {List<String> listdata=new ArrayList<String>();
+
         try{
-            List<String> listdata=new ArrayList<String>();
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
@@ -270,14 +287,13 @@ public class thirdleveltodo_options extends Fragment {
             }
             cursor.close();
             expdb.close();
-            ArrayAdapter<String> lister=new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1,listdata);
-            listDrinks.setAdapter(lister);
-
         }
         catch (Exception e)
         {
             Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
         }
+
+        return listdata;
     }
 
 }

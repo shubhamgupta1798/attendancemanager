@@ -32,8 +32,12 @@ public class first extends AppCompatActivity
         if(findViewById(R.id.contentdefault)!=null) {
             if(savedInstanceState==null) {
                 topfrag firstFragment = new topfrag();
+             //   FragmentManager manager=new getSupportFragmentManager();
                 getSupportFragmentManager().beginTransaction()
                         .add(R.id.contentdefault, firstFragment).commit();
+              /*  Slider secondfrag=new Slider();
+                 getSupportFragmentManager().beginTransaction()
+                        .add(R.id.slider, secondfrag).commit();*/
 
             }
 

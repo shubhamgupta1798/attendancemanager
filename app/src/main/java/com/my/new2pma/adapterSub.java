@@ -5,13 +5,19 @@ package com.my.new2pma;
  */
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
+
+import static com.my.new2pma.R.id.toolbar;
 
 public  class adapterSub extends RecyclerView.Adapter<adapterSub.MyViewHolder> {
 
@@ -21,10 +27,12 @@ public  class adapterSub extends RecyclerView.Adapter<adapterSub.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView Amount,Description;
         public ImageView categoryimage;
+       // public Toolbar toolbar;
 
 
         public MyViewHolder(View view) {
             super(view);
+            //this.toolbar=(Toolbar) view.findViewById(R.id.card_toolbar);
             this.Amount = (TextView) view.findViewById(R.id.amountview);
             this.Description=(TextView) view.findViewById(R.id.description);
             this.categoryimage=(ImageView) view.findViewById(R.id.categoryImage);
@@ -51,6 +59,17 @@ public  class adapterSub extends RecyclerView.Adapter<adapterSub.MyViewHolder> {
         String amount=Integer.toString(tempobj.getAmount());
         holder.Amount.setText(amount);
         holder.categoryimage.setImageResource(tempobj.getImageSourceId());
+       // holder.toolbar.inflateMenu(R.menu.card_toolbar);
+        /*holder.toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener(){
+
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                //Toast.makeText(, "menu item click listner is working",Toast.LENGTH_SHORT).show();
+                Log.w("CardMenu:","My onClick listener is working properly");
+
+                return false;
+            }
+        });*/
 
     }
 

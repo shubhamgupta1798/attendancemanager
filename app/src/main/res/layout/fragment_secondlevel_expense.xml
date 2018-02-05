@@ -3,32 +3,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.my.new2pma.secondlevel_expense">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:orientation="vertical"
+        android:id="@+id/parent"
         android:layout_height="match_parent"
-        >
-        <ImageView
+        android:scrollbars="none"
+        android:background="@color/background">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="223dp"
-            android:text="This is a image view"
-            android:src="@drawable/nit_surat"/>
-        <!--at nit surat i want to add an expense graph where user can see which expenses are going out of the budget-->
+            android:orientation="vertical"
+            android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/list_item"
-            android:layout_width="match_parent"
-            android:layout_height="782dp"
-            android:entries="@array/Expenses">
+            <android.support.v4.view.ViewPager
+                android:layout_width="match_parent"
+                android:layout_height="102dp"
+                android:id="@+id/expensegraph"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/frontoptions"
 
-        </ListView>
+                android:orientation="horizontal"
+                android:weightSum="1">
 
-    </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:scrollbars="none"
+                    android:id="@+id/expenseoption"
+                    android:layout_width="match_parent"
+                    android:elevation="10dp"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginRight="5dp"
+                android:layout_gravity="center"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:id="@+id/category_expenseLister"/>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/totallister"/>
+
+            <android.support.design.widget.FloatingActionButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_margin="20dp"
+                android:id="@+id/addexpense"
+                android:background="@color/background"
+                android:src="@drawable/add_green"/>
+        </LinearLayout>
+
+    </ScrollView>
 
 </FrameLayout>

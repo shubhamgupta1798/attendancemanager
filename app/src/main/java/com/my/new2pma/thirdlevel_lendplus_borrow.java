@@ -1,9 +1,12 @@
 package com.my.new2pma;
 
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,10 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+
+import java.util.Locale;
 
 
 public class thirdlevel_lendplus_borrow extends Fragment {
@@ -23,18 +29,29 @@ public class thirdlevel_lendplus_borrow extends Fragment {
         // Required empty public constructor
     }
     int position;
+    EditText editText;
+    Calendar myCalendar=Calendar.getInstance();
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            position = getArguments().getInt("position",0);
-            }
-    }
+        try {
 
+
+            super.onCreate(savedInstanceState);
+            if (getArguments() != null) {
+                position = getArguments().getInt("position", 0);
+            }
+        }
+        catch(Exception e){
+            Log.d("lendplusborroe","error in oncreate method",e);
+        }
+    }
+    public View view;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View view;
+      //  final View view;
+        try{
+
         if (position == 0)
         {
                     view= inflater.inflate(R.layout.fragment_thirdlevel_lendplus_borrow, container, false);
@@ -48,11 +65,51 @@ public class thirdlevel_lendplus_borrow extends Fragment {
         updater.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
-                                           update(view);
+                                           update( view );
+                                       }
 
                                        }
-                                   }
-        );
+                                  );
+        }
+        catch (Exception e)
+        {
+            Log.d("Error","inside oncreate view function",e);
+        }
+
+
+        // myCalendar = Calendar.getInstance();
+        try {
+            editText = (EditText) view.findViewById(R.id.date);
+            final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                      int dayOfMonth) {
+                    // TODO Auto-generated method stub
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    updateLabel();
+
+                }
+
+            };
+
+            editText.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
+                    new DatePickerDialog(getContext(), date, myCalendar
+                            .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                            myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                }
+            });
+        }
+        catch (Exception e){
+            Toast.makeText(getContext(),"error in datepicker dialoge"+e,Toast.LENGTH_SHORT);
+            Log.d("error in edittext","there is an error",e);
+        }
 
         return view;
     }
@@ -162,6 +219,16 @@ public class thirdlevel_lendplus_borrow extends Fragment {
         catch (Exception e)
         {
             Toast tb=Toast.makeText(getContext(),"Database issue so cant be updated and the issue id\n"+e,Toast.LENGTH_LONG);
+            tb.show();
+        }
+    }
+    private void updateLabel() {
+        try {
+            String myFormat = "MM/dd/yy"; //In which you need put here
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+            editText.setText(sdf.format(myCalendar.getTime()));
+        } catch (Exception e) {
+            Toast tb = Toast.makeText(getContext(), "issue is in update label function and the issue is\n\n" + e, Toast.LENGTH_LONG);
             tb.show();
         }
     }
