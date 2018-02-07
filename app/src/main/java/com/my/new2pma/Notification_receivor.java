@@ -11,6 +11,7 @@ import android.provider.Settings;
 import android.support.v4.app.NotificationCompat;
 import android.widget.Toast;
 
+import java.util.Calendar;
 import java.util.Random;
 
 /**
@@ -22,6 +23,9 @@ int id=0;
     @Override
     public void onReceive(Context context,Intent intent)
     {
+
+        Calendar temp=Calendar.getInstance();
+        int id =(int)temp.getTimeInMillis();
         String des=intent.getStringExtra("des");
         NotificationManager notificationManager= (NotificationManager)context.getSystemService((Context.NOTIFICATION_SERVICE));
         Intent repetattion =new Intent(context,first.class);
@@ -34,7 +38,7 @@ int id=0;
                 //.setContentText(des);
          Random random= new Random();
 
-        notificationManager.notify(id++,builder.build());
+        notificationManager.notify(id,builder.build());
 
 
         Vibrator v = (Vibrator) context.getSystemService((context.VIBRATOR_SERVICE));

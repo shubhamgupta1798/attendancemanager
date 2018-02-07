@@ -85,11 +85,10 @@ public class topfrag extends Fragment {
                                     fm.beginTransaction().replace(R.id.contentdefault, (Fragment) new topfrag()).addToBackStack(null).commit();
                                     break;
                                 case 1:
+                                        FragmentManager ft = getFragmentManager();
+                                        ft.beginTransaction().replace(R.id.contentdefault, (Fragment) new secondlevel_expense()).addToBackStack(null).commit();
 
-                                    FragmentManager ft = getFragmentManager();
-                                    ft.beginTransaction().replace(R.id.contentdefault, (Fragment) new secondlevel_expense()).addToBackStack(null).commit();
 
-                                    ((first) getActivity()).getSupportActionBar().setTitle("EXPENSE");
                                     break;
                                 case 2:
                                     FragmentManager fp = getFragmentManager();
@@ -119,12 +118,12 @@ public class topfrag extends Fragment {
             Toast.makeText(getContext(),"there is an error"+e,Toast.LENGTH_SHORT).show();
         }
       //  ImageButton update=(ImageButton) options.findViewById(R.id.imageButton);
-        View.OnClickListener updater=new View.OnClickListener() {
+        /*View.OnClickListener updater=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 expense();
             }
-        };
+        };*/
        // update.setOnClickListener(updater);
 
 
@@ -185,12 +184,12 @@ public class topfrag extends Fragment {
         return view;
 
     }
-
+/*
     public  void expense()
     {
         FragmentManager fm=getFragmentManager();
         fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new topfrag()).addToBackStack(null).commit();
-    }
+    }*/
     @Override
     public  void onResume() {
         try {

@@ -6,7 +6,6 @@ import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
@@ -25,7 +24,12 @@ import android.widget.ImageButton;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 import static android.content.Context.ALARM_SERVICE;
 
@@ -46,7 +50,7 @@ public class thirdlevel_todoadd extends Fragment {
 
     //Comparator<Long> comparator=new longComparator();
 
-   // PriorityQueue<Long> notification_queue=new PriorityQueue<Long>(10, comparator);
+    List<PendingIntent> notification_queue=new ArrayList<PendingIntent>();
 
     View view;
     public thirdlevel_todoadd() {
@@ -218,7 +222,8 @@ public class thirdlevel_todoadd extends Fragment {
                 //old notification system
                 temp.putExtra("des",b);
 
-                PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(), id++, temp, 0);
+                PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),(int)myCalendar.getTimeInMillis(), temp,PendingIntent.FLAG_ONE_SHOT);
+                notification_queue.add(pendingIntent);
                 AlarmManager alarmManager = (AlarmManager) getActivity().getSystemService(ALARM_SERVICE);
                 alarmManager.setExact(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(), pendingIntent);
 
@@ -305,11 +310,13 @@ public class thirdlevel_todoadd extends Fragment {
 
 }
 /*
-class longComparator implements Comparator<Long>
+class longComparator implements Comparator<PendingIntent>
 {
 
+
+
     @Override
-    public int compare(Long o1, Long o2) {
+    public int compare(PendingIntent o1, PendingIntent o2) {
 
         if(o1>o2)
         {

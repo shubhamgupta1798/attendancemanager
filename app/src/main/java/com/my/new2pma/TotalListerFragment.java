@@ -83,14 +83,10 @@ public class TotalListerFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
 
     protected  void preparedata() {
 
-
+Toast.makeText(getContext(),"prepare data fuction is caleed",Toast.LENGTH_SHORT).show();
         try {
             SQLiteOpenHelper exp0 = new db(getContext());
             SQLiteDatabase db1 = exp0.getReadableDatabase();

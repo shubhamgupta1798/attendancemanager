@@ -14,7 +14,9 @@
     <string-array name="catogories">
         <item>Food</item>
         <item>Movies</item>
-        <item>Study Material</item>
+        <item>Recreational</item>
+        <item>Lend</item>
+        <item>StudyMaterial</item>
     </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
