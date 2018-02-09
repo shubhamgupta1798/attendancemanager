@@ -1,6 +1,6 @@
 package com.my.new2pma;
 
-
+// if it doesnt work replace it from the github file
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -8,8 +8,8 @@ import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -92,7 +92,7 @@ public class thirdlevel_todoadd extends Fragment {
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    new DatePickerDialog(getContext(), date, myCalendar
+                    new DatePickerDialog(getContext(),0, date, myCalendar
                             .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                             myCalendar.get(Calendar.DAY_OF_MONTH)).show();
                 }
@@ -118,12 +118,12 @@ public class thirdlevel_todoadd extends Fragment {
                    // final Calendar currenttime= myCalendar;// there may be error
                     int hour =myCalendar.get(Calendar.HOUR_OF_DAY), minute = myCalendar.get(Calendar.MINUTE);
                     TimePickerDialog mtimepicker;
-                    mtimepicker = new TimePickerDialog(getContext(), new TimePickerDialog.OnTimeSetListener() {
+                    mtimepicker = new TimePickerDialog(getContext(),0, new TimePickerDialog.OnTimeSetListener() {
                         @Override
                         public void onTimeSet(TimePicker timePicker, int selectedhour, int selectedminute) {
                             editTex.setText(selectedhour + ":" + selectedminute);
-                            myCalendar.set(Calendar.HOUR_OF_DAY,timePicker.getHour());
-                            myCalendar.set(Calendar.MINUTE,timePicker.getMinute());
+                            myCalendar.set(Calendar.HOUR_OF_DAY,timePicker.getCurrentHour());
+                            myCalendar.set(Calendar.MINUTE,timePicker.getCurrentMinute());
                         }
                     }, hour, minute,false);
                     mtimepicker.setTitle("select Time");
@@ -221,6 +221,7 @@ public class thirdlevel_todoadd extends Fragment {
 
                 //old notification system
                 temp.putExtra("des",b);
+                temp.putExtra("notify",noti);
 
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),(int)myCalendar.getTimeInMillis(), temp,PendingIntent.FLAG_ONE_SHOT);
                 notification_queue.add(pendingIntent);

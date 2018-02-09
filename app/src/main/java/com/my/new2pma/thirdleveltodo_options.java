@@ -4,8 +4,8 @@ package com.my.new2pma;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.icu.text.SimpleDateFormat;
-import android.icu.util.Calendar;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -32,7 +32,7 @@ public class thirdleveltodo_options extends Fragment {
     String DateToday;
     RecyclerView listDrinks;
 
-    List<String> datalist=new ArrayList<String>();
+    List<todo_shower> datalist=new ArrayList<todo_shower>();
     public thirdleveltodo_options() {
         // Required empty public constructor
     }
@@ -67,7 +67,7 @@ public class thirdleveltodo_options extends Fragment {
 
 
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         listDrinks.setLayoutManager(mLayoutManager);
         listDrinks.setItemAnimator(new DefaultItemAnimator());
 
@@ -79,10 +79,10 @@ public class thirdleveltodo_options extends Fragment {
         return view;
     }
 
-    private List<String> getToday()
+    private List<todo_shower> getToday()
     {
 
-        List<String> listdata=new ArrayList<String>();
+        List<todo_shower> listdata=new ArrayList<todo_shower>();
         try{
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
@@ -92,19 +92,18 @@ public class thirdleveltodo_options extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
             DateToday=sdf.format(myCalendar.getTime());
-            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","CREATED_ON"},"DATE_DEADLINE=?",new String[]{DateToday},null,null,null);
+            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","CREATED_ON","SETALARM","_id"},"DATE_DEADLINE=?",new String[]{DateToday},null,null,null);
             if(cursor.moveToFirst())
             {
 
-                listdata.add("created:"+cursor.getString(2)+cursor.getString(0));
+                listdata.add(new todo_shower(cursor.getString(2),cursor.getString(0),cursor.getInt(3),cursor.getInt(4)));
                 while(cursor.moveToNext())
-                    listdata.add(cursor.getString(0));
-
+                    listdata.add(new todo_shower(cursor.getString(2),cursor.getString(0),cursor.getInt(3),cursor.getInt(4)));
 
             }
             else
             {
-                listdata.add("there is nothing for today in the todo's");
+                listdata.add( new todo_shower(null,"there is nothing  in todays the todo's",0,0));
             }
 
             cursor.close();
@@ -124,27 +123,26 @@ public class thirdleveltodo_options extends Fragment {
         }
         return listdata;
     }
-    private List<String> getAll()
+    private List<todo_shower> getAll()
     {
 
-        List<String> listdata=new ArrayList<String>();
+        List<todo_shower> listdata=new ArrayList<todo_shower>();
         try{
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
             SQLiteDatabase expdb = dbhelper.getReadableDatabase();
-            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","CREATED_ON"},null,null,null,null,null);
+            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","CREATED_ON","SETALARM","_id"},null,null,null,null,null);
             if(cursor.moveToFirst())
             {
 
-                listdata.add("created:"+cursor.getString(2)+"deadLine"+cursor.getString(1)+":::"+cursor.getString(0));
+                listdata.add(new todo_shower(cursor.getString(2),cursor.getString(0),cursor.getInt(3),cursor.getInt(4)));
                 while(cursor.moveToNext())
-                    listdata.add("created:"+cursor.getString(2)+"deadLine"+cursor.getString(1)+":::"+cursor.getString(0));
-
+                    listdata.add(new todo_shower(cursor.getString(2),cursor.getString(0),cursor.getInt(3),cursor.getInt(4)));
 
             }
             else
             {
-                listdata.add("there is nothing in your todo list");
+                listdata.add( new todo_shower(null,"there is nothing  in the todo's",0,0));
             }
 
             cursor.close();
@@ -159,10 +157,10 @@ public class thirdleveltodo_options extends Fragment {
         return listdata;
     }
 
-    private List<String> getTommorow()
+    private List<todo_shower> getTommorow()
     {
 
-        List<String> listdata=new ArrayList<String>();
+        List<todo_shower> listdata=new ArrayList<todo_shower>();
         try{
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
@@ -172,18 +170,18 @@ public class thirdleveltodo_options extends Fragment {
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             myCalendar.add(Calendar.DATE,1);
             DateToday=sdf.format(myCalendar.getTime());
-            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE"},"DATE_DEADLINE=?",new String[]{DateToday},null,null,null);
+            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","SETALARM","_id"},"DATE_DEADLINE=?",new String[]{DateToday},null,null,null);
             if(cursor.moveToFirst())
             {
 
-                listdata.add(cursor.getString(1)+":"+cursor.getString(0));
+                listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
                 while(cursor.moveToNext())
-                    listdata.add(cursor.getString(1)+":"+cursor.getString(0));
+                    listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
 
             }
             else
             {
-                listdata.add("there is nothing for tommorow in the todo's");
+                listdata.add( new todo_shower(null,"there is nothing for tomorrow in the todo's",0,0));
             }
             cursor.close();
             expdb.close();
@@ -191,14 +189,14 @@ public class thirdleveltodo_options extends Fragment {
         }
         catch (Exception e)
         {
-            Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "error in getting tomorrows todos"+e, Toast.LENGTH_LONG).show();
         }
         return listdata;
     }
-    private List<String> getThisWeek()
+    private List<todo_shower> getThisWeek()
     {
 
-        List<String> listdata=new ArrayList<String>();
+        List<todo_shower> listdata=new ArrayList<todo_shower>();
         try{
             SQLiteOpenHelper dbhelper = new db(getContext());
             // Calendar temp=Calendar.getInstance();
@@ -219,18 +217,18 @@ public class thirdleveltodo_options extends Fragment {
             }
 
             //DateToday=sdf.format(myCalendar.getTime());
-            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE"},"DATE_DEADLINE IN(?,?,?,?,?,?,?)",week,null,null,null);
+            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","SETALARM","_id"},"DATE_DEADLINE IN(?,?,?,?,?,?,?)",week,null,null,null);
             if(cursor.moveToFirst())
             {
 
-                listdata.add("Deadline"+cursor.getString(1)+":"+cursor.getString(0));
+                listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
                 while(cursor.moveToNext())
-                    listdata.add("Deadline"+cursor.getString(1)+":"+cursor.getString(0));
+                    listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
 
             }
             else
             {
-                listdata.add("there is nothing for getContext() week in the todo's");
+                listdata.add( new todo_shower(null,"there is nothing for tomorrow in the todo's",0,0));
             }
             cursor.close();
             expdb.close();
@@ -238,15 +236,15 @@ public class thirdleveltodo_options extends Fragment {
         }
         catch (Exception e)
         {
-            Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "error in getting this week todos"+e, Toast.LENGTH_LONG).show();
         }
         return listdata;
     }
 //the following method is not appropriate but as we have stored the date in the string format ihave to do getContext() in the bad way late we will replace string type by
     //long so to select a date from a range will become an easy task to do
 
-    private List<String> getThisMonth()
-    {List<String> listdata=new ArrayList<String>();
+    private List<todo_shower> getThisMonth()
+    {List<todo_shower> listdata=new ArrayList<todo_shower>();
 
         try{
             SQLiteOpenHelper dbhelper = new db(getContext());
@@ -272,25 +270,25 @@ public class thirdleveltodo_options extends Fragment {
 
 
             //DateToday=sdf.format(myCalendar.getTime());
-            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE"},"DATE_DEADLINE IN(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",weki,null,null,null);
+            Cursor cursor=expdb.query("TODO",new String[]{"DESCRIPTION","DATE_DEADLINE","SETALARM","_id"},"DATE_DEADLINE IN(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",weki,null,null,null);
             if(cursor.moveToFirst())
             {
 
-                listdata.add("Deadline"+cursor.getString(1)+":"+cursor.getString(0));
+                listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
                 while(cursor.moveToNext())
-                    listdata.add("Deadline"+cursor.getString(1)+":"+cursor.getString(0));
+                    listdata.add(new todo_shower(cursor.getString(1),cursor.getString(0),cursor.getInt(2),cursor.getInt(3)));
 
             }
             else
             {
-                listdata.add("there is nothing for getContext() week in the todo's");
+                listdata.add( new todo_shower(null,"there is nothing for tomorrow in the todo's",0,0));
             }
             cursor.close();
             expdb.close();
         }
         catch (Exception e)
         {
-            Toast.makeText(getContext(), "error in getting todays todos"+e, Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "error in getting this months todos"+e, Toast.LENGTH_LONG).show();
         }
 
         return listdata;

@@ -65,19 +65,20 @@ public class graph extends Fragment {
 
         cal=dat.getTime();
         BarGraphSeries<DataPoint> series = new BarGraphSeries<>(new DataPoint[] {
-                new DataPoint(cal, -10),
-                new DataPoint(cal, 50),
-                new DataPoint(cal, 30),
-                new DataPoint(cal, 20),
-                new DataPoint(cal, 60),
-                new DataPoint(cal,50)
+                new DataPoint(1, -10),
+                new DataPoint(2, 50),
+                new DataPoint(3, 30),
+             //   new DataPoint(cal, 20),
+               // new DataPoint(cal, 60),
+                //new DataPoint(cal,50)
         });
         graph.getViewport().setScalable(true);
         graph.getViewport().setScalableY(true);
         graph.addSeries(series);
 
-        graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
-        graph.getGridLabelRenderer().setNumHorizontalLabels(3);
+        //graph.getGridLabelRenderer().setLabelFormatter(new DateAsXAxisLabelFormatter(getActivity()));
+        //
+        // graph.getGridLabelRenderer().setNumHorizontalLabels(3);
 
 
 // styling

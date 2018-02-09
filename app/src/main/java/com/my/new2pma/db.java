@@ -60,6 +60,7 @@ public class db extends SQLiteOpenHelper {
 
     }
 
+
     public boolean insertdb(SQLiteDatabase db, int amount, String description, String name, boolean lend, boolean borrow, boolean food, boolean recreational, boolean study) {
         try {
             name=name.toUpperCase();

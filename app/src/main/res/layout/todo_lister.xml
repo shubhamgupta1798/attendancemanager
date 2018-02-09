@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_margin="10dp"
+        android:id="@+id/todocard"
         android:minHeight="80dp"
         android:layout_height="wrap_content">
         <LinearLayout
@@ -39,31 +40,31 @@
                     android:textSize="20dp"
                     android:layout_weight="1"
                     android:layout_gravity="center_horizontal"
-                     />
+                    />
 
-                <android.support.v7.widget.Toolbar
-                    android:layout_width="wrap_content"
+                 <android.support.v7.widget.Toolbar
+                      android:layout_width="wrap_content"
 
-                    android:background="@color/todo_add_options_background"
+                      android:background="@color/todo_add_options_background"
 
-                    android:elevation="10dp"
-                    android:id="@+id/menu_for_todo"
+                      android:id="@+id/menu_for_todo"
 
-                    android:layout_height="match_parent"/>
+                      android:layout_height="match_parent"/>
                 <!--<ImageButton
                     android:id="@+id/menu_for_todo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:elevation="10dp"
+                    android:background="@color/background"
                     app:srcCompat="?android:attr/floatingToolbarOpenDrawable" />-->
 
             </LinearLayout>
-          <!--  <android.opengl.GLSurfaceView
-                android:layout_width="match_parent"
-                android:layout_marginTop="10dp"
-                android:paddingTop="20dp"
-                android:layout_height="2dp" />-->
+            <!--  <android.opengl.GLSurfaceView
+                  android:layout_width="match_parent"
+                  android:layout_marginTop="10dp"
+                  android:paddingTop="20dp"
+                  android:layout_height="2dp" />-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

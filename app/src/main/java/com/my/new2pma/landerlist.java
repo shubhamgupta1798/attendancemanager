@@ -58,7 +58,7 @@ public class landerlist extends Fragment {
                 new RecyclerItemClickListener(getContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         // do whatever
-                        Toast.makeText(getContext(),"onclickListener is working\n now you can add youtr function into it",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(),"onclickListener is working\n now you can add your function into it",Toast.LENGTH_SHORT).show();
 
                         //Fragment fragment=new TotalListerFragment();
                         //fragment.setArguments(data);

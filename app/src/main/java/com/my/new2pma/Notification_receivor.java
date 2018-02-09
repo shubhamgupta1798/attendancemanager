@@ -27,6 +27,8 @@ int id=0;
         Calendar temp=Calendar.getInstance();
         int id =(int)temp.getTimeInMillis();
         String des=intent.getStringExtra("des");
+        boolean notify=false;
+        notify=intent.getBooleanExtra("notify",false);
         NotificationManager notificationManager= (NotificationManager)context.getSystemService((Context.NOTIFICATION_SERVICE));
         Intent repetattion =new Intent(context,first.class);
         PendingIntent pendingIntent=PendingIntent.getActivity(context,id,repetattion,0);
@@ -34,24 +36,27 @@ int id=0;
         .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
                 .setSmallIcon(android.R.drawable.arrow_up_float)
-                .setContentTitle("new pma");
-                //.setContentText(des);
+                .setContentTitle("new pma")
+                .setContentText(des);
          Random random= new Random();
 
         notificationManager.notify(id,builder.build());
 
 
-        Vibrator v = (Vibrator) context.getSystemService((context.VIBRATOR_SERVICE));
-        v.vibrate(10000);
-        Toast.makeText(context, "vibrator set successfully", Toast.LENGTH_SHORT).show();
 
 
 
 
 
+if(notify) {
+    MediaPlayer mediaPlayer = MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
+    mediaPlayer.start();
 
-        MediaPlayer mediaPlayer=MediaPlayer.create(context, Settings.System.DEFAULT_RINGTONE_URI);
-        mediaPlayer.start();
-
+    Vibrator v = (Vibrator) context.getSystemService((context.VIBRATOR_SERVICE));
+    v.vibrate(10000);
+    Toast.makeText(context, "vibrator set successfully", Toast.LENGTH_SHORT).show();
+}
     }
+
+
 }

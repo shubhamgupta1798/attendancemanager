@@ -1,6 +1,9 @@
 package com.my.new2pma;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import java.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -25,6 +28,26 @@ public class first extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
+
+
+
+
+        Intent temp = new Intent(this, Notification_receivor.class);
+
+        //old notification system
+        temp.putExtra("des","mark todays attendence");
+        temp.putExtra("notify",false);
+        Calendar myCalendar= Calendar.getInstance();
+        myCalendar.set(Calendar.HOUR_OF_DAY,18,30);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this,0, temp,PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager alarmManager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, myCalendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY, pendingIntent);
+
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -97,18 +120,25 @@ public class first extends AppCompatActivity
 
         if (id == R.id.home) {
             FragmentManager fm=getSupportFragmentManager();
-            fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new secondlevel_todo()).addToBackStack(null).commit();
+            fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new topfrag()).addToBackStack(null).commit();
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
+            FragmentManager fm=getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new thirdlevel_todoadd()).addToBackStack(null).commit();
+
+
         } else if (id == R.id.nav_slideshow) {
+
+            FragmentManager fm=getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new expense_add()).addToBackStack(null).commit();
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
 
+            FragmentManager fm=getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.contentdefault, (Fragment)new thirdlevel_todoadd()).addToBackStack(null).commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
