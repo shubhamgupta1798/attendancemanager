@@ -1,4 +1,4 @@
-# amoc_project
+# AMOC_PROJECT
 This project is being developed under the month long event(AMOC) of ACM NIT(SURAT) starting from 08/01/2018 to 08/02/2018.
 In this project  are hope to develop an android application which can prove to  be helpful in students day to day activities.
 
