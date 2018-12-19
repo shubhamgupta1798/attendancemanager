@@ -5,3 +5,9 @@ Are you tenced about your acadamic life and are you finding difficulty to keep a
 It is the most beautiful and intuitive way to manage your university life .
 Save your timetable and all task from homeworks to exam.Manage your attendance daily and track your expenses every day.
 So guys our app PMA(personal managing assistant) will allow you to do all this things at your finger tips.
+
+THE EXPENSES PART IS PRESENT IN
+ashwini_1 branch and is not added in master
+
+THE ATTENDANCE MANAGER IS PRESENT IN
+new branch with all updates and contains all information about each activity
